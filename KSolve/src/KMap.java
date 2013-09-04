@@ -84,6 +84,7 @@ public class KMap {
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
 					t+=" "+grid[i][j] +" ";
+//					t+=" "+i+","+j+","+grid[i][j] +" ";
 			}
 			t+="\n";
 		}

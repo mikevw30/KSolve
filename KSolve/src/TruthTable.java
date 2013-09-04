@@ -7,14 +7,11 @@
  * laptop runs out of memory at 2^15)
  *  
  */
-
-
 public class TruthTable {
 	TTRow[] grid;
 	int numVar;
 	int x;
 	int y;
-	
 	
 	public TruthTable(int numVar){
 		x = (int) Math.pow(2, numVar);
