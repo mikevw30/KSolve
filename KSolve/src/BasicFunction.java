@@ -16,32 +16,31 @@
 
 //TODO: note: the not operator explination.
 
-
 public class BasicFunction {
 	int a;
 	int b;
 	int flag;
 	int result;
-	
-	public BasicFunction(int a, int b, int flag){
+
+	public BasicFunction(int a, int b, int flag) {
 		this.a = a;
 		this.b = b;
 		this.flag = flag;
 	}
-	
-	public int evalBF(){
-		if(flag == 1) {
-			//System.out.println("evalBF(): A+B");
-			result = a|b;
-			//System.out.println("a,b,result: "+a+","+b+",b"+","+result);
-		}
-		else if(flag == 2){
-			//System.out.println("A&B");
-			result = a&b;
-		}
-		else if(flag == 3){
-			//System.out.println("A^B");
-			result = a^b;
+
+	public int evalBF() {
+		if (flag == 1) {
+			// System.out.println("evalBF(): A+B");
+			result = a | b;
+			// System.out.println("a,b,result: "+a+","+b+",b"+","+result);
+		} 
+		else if (flag == 2) {
+			// System.out.println("A&B");
+			result = a & b;
+		} 
+		else if (flag == 3) {
+			// System.out.println("A^B");
+			result = a ^ b;
 		}
 		return result;
 	}

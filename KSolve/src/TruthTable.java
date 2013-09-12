@@ -12,21 +12,21 @@ public class TruthTable {
 	int numVar;
 	int x;
 	int y;
-	
-	public TruthTable(int numVar){
+
+	public TruthTable(int numVar) {
 		x = (int) Math.pow(2, numVar);
 		grid = new TTRow[x];
 		for (int i = 0; i < x; i++) {
-			grid[i]= new TTRow(numVar);
+			grid[i] = new TTRow(numVar);
 		}
 		fillTruthTable(x);
 	}
-	
-	public void fillTruthTable(int x){
+
+	public void fillTruthTable(int x) {
 		fillStepOne();
 	}
 
-	public void fillStepOne(){
+	public void fillStepOne() {
 		for (int i = 0; i < x; i++) {
 			grid[i].setLengthAndValue(i);
 		}
