@@ -1,116 +1,132 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Term {
-	ArrayList<CordPair> term;
-	boolean copy = false;
+	ArrayList<Integer> term;
+	boolean deleteFlag = false;
 
 	public Term() {
-		term = new ArrayList<CordPair>();
+		term = new ArrayList<Integer>();
 	}
 
-	public Term(ArrayList<CordPair> cordPairList) {
-		this.term = cordPairList;
+	public Term(ArrayList<Integer> IntegerList) {
+		this.term = IntegerList;
 	}
 
-	public Term(int x, int y) {
-		term = new ArrayList<CordPair>();
-
-		term.add(new CordPair(x, y));
-
+	public Term(int pos) {
+		term = new ArrayList<Integer>();
+		term.add(pos);
 	}
+	
+	public boolean isSubSet(Term t){
+		boolean result = true;
+		for (Integer num : t.term) {
+			if(!(term.contains(num))){
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	
 
-	public void addSetOfTwo(int x, int y, int direction) {
-		CordPair one = new CordPair(x, y);
-		term.add(one);
-
+	public void addSetOfTwo(int pos, int direction) {
+		term.add(pos);
 		if (direction == 1) { // right pair
-			if (y < 3){
-				term.add(new CordPair(x, y + 1));
-			}
-			else{
-				term.add(new CordPair(x, 0));
-			}
+			term.add(((pos+1)%4)+(4*getX(pos)));
 		}
-		// 2:DOWN
 		else if (direction == 2) {
-			if (x < 3){
-				term.add(new CordPair(x + 1, y));
-			}
-			else{
-				term.add(new CordPair(0, y));
-			}
+			term.add((pos+4)%16);
 		}
+		Collections.sort(term);
+	}
+	
+	
+	public int getX(int pos){
+		int count =-1;
+		while (pos >=0){
+			pos =pos-4;
+			count++;
+		} 
+		return count;
 	}
 
-	public void addFour(int x, int y, int direction, int numVar) {
+	public void addFour(int pos, int direction) {
+		//1:Horizontal
 		if (direction == 1) {
-			for (int i = 0; i < numVar; i++) {
-				// if(value != getValue(x, i))
-				term.add(new CordPair(x, i));
-			}
+			term.add(pos);
+			term.add(getRight(pos));
+			term.add(getRight(getRight(pos)));
+			term.add(getRight(getRight(getRight(pos))));
 		}
 		// 2:Vertical
 		else if (direction == 2) {
-			for (int i = 0; i < numVar; i++) {
-				// if(value != getValue(x, i))
-				term.add(new CordPair(i, y));
-			}
+			term.add(pos);
+			term.add(getDown(pos));
+			term.add(getDown(getDown(pos)));
+			term.add(getDown(getDown(getDown(pos))));
 		}
+		Collections.sort(term);
+	}
+	public int getRight(int pos) {
+		return ((pos + 1) % 4) + (4 * getX(pos));
 	}
 
-	public void addSquare(int x, int y, int direction) {
+	public int getDown(int pos) {
+		return ((pos + 4) % 16);
+	}
+	public void addSquare(int pos, int direction) {
 		// 2x1 seeking 2x2 (from right)
-		term.add(new CordPair(x, y));
+		term.add(pos);
 		if (direction == 1) {
-			if (y == 3) {					
-				term.add(new CordPair(x+1,y));
-				term.add(new CordPair(x+1,0));
-				term.add(new CordPair(x  ,0));
-			} 
-			else if (x == 3) {
-				term.add(new CordPair(x  ,y+1));
-				term.add(new CordPair(0  ,y+1));
-				term.add(new CordPair(0  ,y));
-			}
-
-			else {
-				term.add(new CordPair(x+1, y+1));
-				term.add(new CordPair(x  , y+1));
-				term.add(new CordPair(x+1, y));
-			}
+			term.add(getRight(pos));
+			term.add(getDown(pos));
+			term.add(getDown(getRight(pos)));
 		}
 		// 1x2 seeking 2x2 (from down)
 		else if (direction == 2) {
-			if (y == 3) {					
-				term.add(new CordPair(x+1,y));
-				term.add(new CordPair(x+1,0));
-				term.add(new CordPair(x  ,0));
-			} 
-			else if (x == 3) {
-				term.add(new CordPair(x  ,y+1));
-				term.add(new CordPair(0  ,y+1));
-				term.add(new CordPair(0  ,y));
-			}
-
-			else {
-				term.add(new CordPair(x+1, y+1));
-				term.add(new CordPair(x  , y+1));
-				term.add(new CordPair(x+1, y));
-			}
+			term.add(getDown(pos));
+			term.add(getRight(pos));
+			term.add(getRight(getDown(pos)));
 		}
+		Collections.sort(term);
+	}
+	
+	public void addEight(int pos, int direction){
+		term.add(pos);
+		if (direction == 1) {
+			term.add(getRight(pos));
+			term.add(getDown(pos));
+			term.add(getDown(getRight(pos)));
+			term.add(getRight(getRight(pos)));
+			term.add(getRight(getRight(getRight(pos))));
+			term.add(getDown(getRight(getRight(pos))));
+			term.add(getDown(getRight(getRight(getRight(pos)))));
+		}
+		// 1x2 seeking 2x2 (from down)
+		else if (direction == 2) {
+			term.add(getDown(pos));
+			term.add(getRight(pos));
+			term.add(getRight(getDown(pos)));			
+			term.add(getDown(getDown(pos)));
+			term.add(getDown(getDown(getDown(pos))));
+			term.add(getRight(getDown(getDown(pos))));
+			term.add(getRight(getDown(getDown(getDown(pos)))));
+		}
+		Collections.sort(term);
 	}
 
-	public static void main(String[] args) {
-		Term eList = new Term();
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				CordPair addThis = new CordPair(i, j);
-				eList.term.add(addThis);
-			}
-		}
-
-		System.out.println(eList.term.toString());
-		System.out.println(eList.term.contains(new CordPair(-1, 0)));
-	}
+//	public static void main(String[] args) {
+//		Term eList = new Term();
+//		for (int i = 0; i < 4; i++) {
+//			for (int j = 0; j < 4; j++) {
+//				Integer addThis = new Integer(i, j);
+//				eList.term.add(addThis);
+//			}
+//		}
+//
+//		System.out.println(eList.term.toString());
+//		System.out.println(eList.term.contains(new Integer(-1, 0)));
+//	}
 
 }

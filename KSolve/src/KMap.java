@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 
 public class KMap {
 	int x;
 	int y;
 	int numVar;
 	int[][] grid;
+	ArrayList<Integer> minMaxSet;
 	
 	
 	public KMap(int numVar){
@@ -11,6 +14,17 @@ public class KMap {
 		grid = new int[x][y];
 		popGrid(numVar);
 		this.numVar = numVar;
+		minMaxSet = new ArrayList<Integer>();
+	}
+	
+	public void popMinMaxSet(int value){
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				if(grid[i][j]==value){
+					minMaxSet.add(i*4 + j);
+				}
+			}
+		}
 	}
 	
 	public void popXY(int numVar){
@@ -98,12 +112,12 @@ public class KMap {
 //	10 | 1  1  1  1
 	
 
-//	public static void main(String[] args) {
-//		KMap kmX;
-//		for (int i = 0; i <= 4; i++) {
-//			kmX = new KMap(i);
-//			System.out.println(kmX.toString());
-//		}
-//	}
+	public static void main(String[] args) {
+		KMap kmX;
+		for (int i = 0; i <= 4; i++) {
+			kmX = new KMap(i);
+			System.out.println(kmX.toString());
+		}
+	}
 	
 }
