@@ -7,8 +7,10 @@ public class TTRow {
 	public int length;
 	public int row[];
 	public int value;
+	public boolean useFlag;
 
 	public TTRow(int length) {
+		useFlag = false;
 		this.length = length;
 		row = new int[length];
 		for (int i = 0; i < row.length; i++) {
@@ -50,7 +52,7 @@ public class TTRow {
 		for (int i = length - 1; i >= 0; i--) {
 			t += row[i];
 		}
-		t += "\t: " + value;
+		t += "\t: " + value+","+useFlag;
 		return t;
 	}
 

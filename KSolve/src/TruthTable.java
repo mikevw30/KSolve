@@ -14,6 +14,7 @@ public class TruthTable {
 	int y;
 
 	public TruthTable(int numVar) {
+		this.numVar = numVar;
 		x = (int) Math.pow(2, numVar);
 		grid = new TTRow[x];
 		for (int i = 0; i < x; i++) {
@@ -22,6 +23,16 @@ public class TruthTable {
 		fillTruthTable(x);
 	}
 
+	public String toString(){
+		String t ="";
+		for (TTRow ttRow : grid) {
+			t+=ttRow.toString()+"\n";
+			
+		}
+		return t;
+	}
+	
+	
 	public void fillTruthTable(int x) {
 		fillStepOne();
 	}
