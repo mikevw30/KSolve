@@ -6,6 +6,7 @@ public class SolveTerm {
 	int[][] binaryTerm;
 	String sln;
 	ArrayList<Character> varArr;
+	TTRow prime;
 
 	public SolveTerm(Term term, int numVar, ArrayList<Character> varArr) {
 		this.term = term;
@@ -16,6 +17,20 @@ public class SolveTerm {
 
 	}
 
+	public SolveTerm(TTRow prime, int numVar, ArrayList<Character> varArr) {
+		this.prime = prime;
+		this.numVar = numVar;
+		sln = "";
+		binaryTerm = new int[prime.set.size()][numVar];
+		this.varArr = varArr;
+	}
+
+	public void primeToBinary() {
+		for (int i = 0; i < prime.set.size(); i++) {
+				binaryTerm[i] = prime.row;
+		}
+	}
+		
 	public void termToBinary() {
 		for (int i = 0; i < term.term.size(); i++) {
 			for (int j = 0; j < numVar; j++) {
@@ -24,6 +39,27 @@ public class SolveTerm {
 		}
 	}
 
+	public String primeToString() {
+		String t = "(";
+		for (int i = 0; i < 4; i++) {
+			int check = checkPrimeCol(i);
+
+			if (check == -1) {
+				// varArr[i] is canceled from the term.
+			} 
+			else {
+				if (check == 1) {
+					t += varArr.get(i);
+				} 
+				else if (check == 0) {
+					t += "~" + varArr.get(i);
+				}
+			}
+		}
+		t += ")";
+		return t;
+	}
+	
 	public String binaryToString() {
 		String t = "(";
 		for (int i = 0; i < 4; i++) {
@@ -45,6 +81,19 @@ public class SolveTerm {
 		return t;
 	}
 
+	public int checkPrimeCol(int j) {
+		int value = binaryTerm[0][j];
+		// System.out.println("value: "+value);
+		for (int i = 0; i < prime.set.size(); i++) {
+			if (binaryTerm[i][j] != value) {
+				// System.out.println("removeVarFromTerm: "+ j);
+				return -1;
+			}
+		}
+		return value;
+	}
+	
+	
 	public int checkCol(int j) {
 		int value = binaryTerm[0][j];
 		// System.out.println("value: "+value);

@@ -346,24 +346,8 @@ public class KSolver {
 
 	public static void main(String[] args) {
 		KSolver kSolve = new KSolver();
-
-		String fun = // "(~A~B~C~D)+"+ //0
-		// 				"(~A~B~CD)+"+ //1
-						"(~A~BCD)+" + // 2
-						"(~A~BC~D)+" + // 3
-						"(~AB~C~D)+" + // 4
-						"(~AB~CD)+" + // 5
-						"(~ABCD)+" + // 6
-						"(~ABC~D)+" + // 7
-						// "(AB~C~D)+"+ //8
-						// "(AB~CD)+"+ //9
-						"(ABCD)+" + // 10
-						// "(ABC~D)+"+ //11
-						"(A~B~C~D)+" + // 12
-						"(A~B~CD)+" + // 13
-						"(A~BCD)+" + // 14
-						"(A~BC~D)"; // 15
-
+		long startTime = System.nanoTime();
+		String 	fun ="(~A~BC~D)+(~A~BCD)+(~AB~C~D)+(~AB~CD)+(~ABCD)+(ABCD)+(A~B~C~D)+(A~B~CD)+(A~BC~D)+(A~BCD)+(~ABC~D)";
 		kSolve.function = new Function(fun);
 		kSolve.truthSolve();
 
@@ -392,6 +376,10 @@ public class KSolver {
 		kSolve.kBuildSln();
 
 		System.out.println(kSolve.toString());
+		
+		long endTime = System.nanoTime();
+		long duration = endTime - startTime;
+		System.out.println(duration/Math.pow(10, 9));
 	}
 }
 
