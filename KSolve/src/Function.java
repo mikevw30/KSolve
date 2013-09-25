@@ -83,17 +83,9 @@ public class Function {
 			}
 			if (charAtIndex == ')') { // if right paren
 				// System.out.println("found a )"+index+": "+charAtIndex);
-				while (!funS.isEmpty() && !funS.peek().equals('(')) { // while
-																		// the
-																		// stack
-																		// isn't
-																		// empty
-																		// and
-																		// stack.peek
-																		// is
-																		// NOT a
-																		// left
-																		// paren
+				while (!funS.isEmpty() && !funS.peek().equals('(')) {  															 
+																		// while the stack isn't empty and stack.peek is NOT a left paren
+																		
 					postFix += funS.pop();// pop the stack and add that value to
 											// postFix
 				}
@@ -129,16 +121,13 @@ public class Function {
 
 	public boolean checkStack(char charAtIndex, char top) { // checking order of
 															// operations.
-		if (charAtIndex == '+'
-				&& (top == '~' || top == '&' || top == '^' || (top >= 'A' && top <= 'Z'))) {
+		if (charAtIndex == '+' && (top == '~' || top == '&' || top == '^' || (top >= 'A' && top <= 'Z'))) {
 			return true;
 		} 
-		else if (charAtIndex == '^'
-				&& (top == '~' || top == '&' || (top >= 'A' && top <= 'Z'))) {
+		else if (charAtIndex == '^' && (top == '~' || top == '&' || (top >= 'A' && top <= 'Z'))) {
 			return true;
 		}
-		else if (charAtIndex == '&'
-				&& (top == '~' || (top >= 'A' && top <= 'Z'))) {
+		else if (charAtIndex == '&' && (top == '~' || (top >= 'A' && top <= 'Z'))) {
 			return true;
 		} 
 		else if (charAtIndex == '~' && (top >= 'A' && top <= 'Z')) {
@@ -207,6 +196,7 @@ public class Function {
 
 	public String toString() {
 		String t = input + "\n";
+		t+= "#:\t";
 		for (int i = 0; i < varArr.size(); i++) {
 			t += varArr.get(i);
 		}
